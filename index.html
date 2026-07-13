@@ -79,16 +79,14 @@
   .reveal{ opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
   .reveal.in{ opacity:1; transform:translateY(0); }
 
-  .carousel-wrap{ position:relative; width:100vw; margin-left:calc(50% - 50vw); }
-  .carousel{ display:flex; gap:1rem; overflow-x:hidden; padding:0 1rem 0.5rem; scrollbar-width:none; cursor:grab; }
-  .carousel::-webkit-scrollbar{ display:none; }
+  .carousel-wrap{ position:relative; width:100vw; margin-left:calc(50% - 50vw); overflow:hidden; }
+  .carousel{ display:flex; gap:1rem; width:max-content; padding:0 1rem 0.5rem; animation: marquee 34s linear infinite; }
+  .carousel.reverse{ animation-direction: reverse; }
   .carousel figure{ flex:0 0 auto; width:260px; }
   .carousel img{ width:260px; height:320px; object-fit:cover; border-radius:2px; border:1px solid var(--line); background:var(--bg-panel-2); display:block; }
   .carousel figcaption{ font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--ink-dim); font-size:0.85rem; margin-top:0.6rem; text-align:center; }
-  .carousel-btn{ position:absolute; top:40%; transform:translateY(-50%); width:40px; height:40px; border-radius:50%; background:var(--bg); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; color:var(--ink); font-size:1.1rem; transition:background .2s; }
-  .carousel-btn:hover{ background:var(--bg-panel-2); }
-  .carousel-btn.prev{ left:1.2rem; } .carousel-btn.next{ right:1.2rem; }
-  @media (max-width:700px){ .carousel-btn{ display:none; } }
+  @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce){ .carousel{ animation:none; } }
 
   .bio{ display:grid; grid-template-columns:280px 1fr; gap:3rem; align-items:center; padding:1rem 0; }
   .bio-photo{ width:100%; aspect-ratio:1; border-radius:50%; overflow:hidden; border:1px solid var(--line); background:var(--bg-panel-2); }
@@ -145,14 +143,16 @@
 <section id="galeria">
   <div class="wrap">
     <div class="carousel-wrap reveal" id="home">
-      <button class="carousel-btn prev" data-target="car1" aria-label="Anterior">‹</button>
       <div class="carousel" id="car1">
         <figure><img src="clienta1.png" alt="Clienta de Isolina Studio 1" loading="lazy"><figcaption>Lifting de pestañas</figcaption></figure>
         <figure><img src="clienta2.png" alt="Clienta de Isolina Studio 2" loading="lazy"><figcaption>Brow lamination</figcaption></figure>
         <figure><img src="clienta3.png" alt="Clienta de Isolina Studio 3" loading="lazy"><figcaption>Lifting de pestañas</figcaption></figure>
         <figure><img src="clienta4.png" alt="Clienta de Isolina Studio 4" loading="lazy"><figcaption>Brow lamination</figcaption></figure>
+        <figure><img src="clienta1.png" alt="Clienta de Isolina Studio 1" loading="lazy"><figcaption>Lifting de pestañas</figcaption></figure>
+        <figure><img src="clienta2.png" alt="Clienta de Isolina Studio 2" loading="lazy"><figcaption>Brow lamination</figcaption></figure>
+        <figure><img src="clienta3.png" alt="Clienta de Isolina Studio 3" loading="lazy"><figcaption>Lifting de pestañas</figcaption></figure>
+        <figure><img src="clienta4.png" alt="Clienta de Isolina Studio 4" loading="lazy"><figcaption>Brow lamination</figcaption></figure>
       </div>
-      <button class="carousel-btn next" data-target="car1" aria-label="Siguiente">›</button>
     </div>
 
     <div class="bio reveal">
@@ -180,14 +180,16 @@
     </section>
 
     <div class="carousel-wrap reveal">
-      <button class="carousel-btn prev" data-target="car2" aria-label="Anterior">‹</button>
-      <div class="carousel" id="car2">
+      <div class="carousel reverse" id="car2">
+        <figure><img src="clienta5.png" alt="Clienta de Isolina Studio 5" loading="lazy"><figcaption>Lifting de pestañas</figcaption></figure>
+        <figure><img src="clienta6.png" alt="Clienta de Isolina Studio 6" loading="lazy"><figcaption>Brow lamination</figcaption></figure>
+        <figure><img src="clienta7.png" alt="Clienta de Isolina Studio 7" loading="lazy"><figcaption>Lifting de pestañas</figcaption></figure>
+        <figure><img src="clienta8.png" alt="Clienta de Isolina Studio 8" loading="lazy"><figcaption>Brow lamination</figcaption></figure>
         <figure><img src="clienta5.png" alt="Clienta de Isolina Studio 5" loading="lazy"><figcaption>Lifting de pestañas</figcaption></figure>
         <figure><img src="clienta6.png" alt="Clienta de Isolina Studio 6" loading="lazy"><figcaption>Brow lamination</figcaption></figure>
         <figure><img src="clienta7.png" alt="Clienta de Isolina Studio 7" loading="lazy"><figcaption>Lifting de pestañas</figcaption></figure>
         <figure><img src="clienta8.png" alt="Clienta de Isolina Studio 8" loading="lazy"><figcaption>Brow lamination</figcaption></figure>
       </div>
-      <button class="carousel-btn next" data-target="car2" aria-label="Siguiente">›</button>
     </div>
   </div>
 </section>
@@ -257,48 +259,17 @@
 
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  function setupAutoCarousel(id, speed = 0.55) {
-    const track = document.getElementById(id);
-    if (!track) return;
-    track.innerHTML += track.innerHTML;
-    let paused = false;
-    let half = track.scrollWidth / 2;
-    window.addEventListener('resize', () => { half = track.scrollWidth / 2; });
+  // ====== CONFIG ======
+  const WHATSAPP_NUMBER = '5491134246683'; // +54 9 11 3424-6683
+  // =====================
 
-    track.addEventListener('mouseenter', () => paused = true);
-    track.addEventListener('mouseleave', () => paused = false);
-    track.addEventListener('touchstart', () => paused = true, { passive: true });
-    track.addEventListener('touchend', () => paused = false);
+  // Los botones de "Reservar turno" (nav + hero) llevan a la página de reservas
+  document.getElementById('navReserva').href = 'Reservas.html';
+  document.getElementById('heroReserva').href = 'Reservas.html';
 
-    function tick() {
-      if (!paused) {
-        track.scrollLeft += speed;
-        if (track.scrollLeft >= half) track.scrollLeft -= half;
-      }
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-
-    document.querySelectorAll(`.carousel-btn[data-target="${id}"]`).forEach(btn => {
-      btn.addEventListener('click', () => {
-        const dir = btn.classList.contains('next') ? 1 : -1;
-        track.scrollBy({ left: dir * 280, behavior: 'smooth' });
-      });
-    });
-  }
-  setupAutoCarousel('car1');
-  setupAutoCarousel('car2');
-
-  // ====== CONFIG: completar cuando tengas el número real ======
-  const WHATSAPP_NUMBER = ''; // ej: '5493855555555'
-  // ==============================================================
+  // El ícono flotante de WhatsApp va directo al chat
   const waMsg = encodeURIComponent('Hola! Quiero reservar un turno en Isolina Studio ✨');
-  const waUrl = WHATSAPP_NUMBER ? `https://wa.me/${WHATSAPP_NUMBER}?text=${waMsg}` : '#';
-  document.getElementById('waFloat').href = waUrl;
-  document.getElementById('navReserva').href = waUrl;
-  document.getElementById('navReserva').target = WHATSAPP_NUMBER ? '_blank' : '_self';
-  document.getElementById('heroReserva').href = waUrl;
-  document.getElementById('heroReserva').target = WHATSAPP_NUMBER ? '_blank' : '_self';
+  document.getElementById('waFloat').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${waMsg}`;
 </script>
 
 </body>
