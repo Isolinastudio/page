@@ -49,6 +49,18 @@
   .btn-ghost{ border-color:var(--line); color:var(--ink-dim); }
   .btn-ghost:hover{ background:transparent; color:var(--gold); border-color:var(--gold); transform:translateY(-1px); }
 
+  /* efecto "cartel luminoso" para resaltar la reserva de turno */
+  .btn-glow{ animation:signGlow 2.4s ease-in-out infinite; }
+  @keyframes signGlow{
+    0%,100%{ box-shadow:0 0 6px rgba(177,134,63,0.35), 0 0 16px rgba(156,107,103,0.25); }
+    50%{ box-shadow:0 0 16px rgba(177,134,63,0.75), 0 0 34px rgba(156,107,103,0.55), 0 0 50px rgba(177,134,63,0.3); }
+  }
+  .nav-glow{ position:relative; color:var(--rose-deep) !important; text-shadow:0 0 6px rgba(177,134,63,0.4); animation:navSignGlow 2.4s ease-in-out infinite; }
+  @keyframes navSignGlow{
+    0%,100%{ text-shadow:0 0 4px rgba(177,134,63,0.35), 0 0 10px rgba(156,107,103,0.25); }
+    50%{ text-shadow:0 0 8px rgba(177,134,63,0.85), 0 0 20px rgba(156,107,103,0.6); }
+  }
+
   .hero{ position:relative; min-height:92vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:8rem 6vw 4rem;
     background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(193,144,140,0.14), transparent 60%), var(--bg); overflow:hidden; }
   .hero::before{ content:''; position:absolute; width:700px; height:700px; border:1px solid var(--line); border-radius:50%; top:-320px; opacity:0.7; }
@@ -58,25 +70,26 @@
   .hero p.lead{ opacity:0; animation:fadeUp .9s ease .4s forwards; max-width:480px; margin:1.6rem auto 2.4rem; color:var(--ink-dim); font-size:1.02rem; }
   .hero-ctas{ opacity:0; animation:fadeUp .9s ease .55s forwards; display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
   @keyframes fadeUp{ from{ opacity:0; transform:translateY(16px);} to{ opacity:1; transform:translateY(0);} }
-  .hero-stats{ opacity:0; animation:fadeUp .9s ease .7s forwards; display:flex; gap:2.6rem; margin-top:3.6rem; font-family:'Cormorant Garamond',serif; }
-  .hero-stats div{ text-align:center; }
-  .hero-stats .num{ font-size:1.7rem; color:var(--rose-deep); display:block; }
-  .hero-stats .label{ font-family:'Jost',sans-serif; font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-dim); }
+  .bio-stats{ display:flex; gap:2.2rem; margin-top:1.8rem; font-family:'Cormorant Garamond',serif; }
+  .bio-stats div{ text-align:left; }
+  .bio-stats .num{ font-size:1.5rem; color:var(--rose-deep); display:block; }
+  .bio-stats .label{ font-family:'Jost',sans-serif; font-size:0.64rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-dim); }
+  @media (max-width:760px){ .bio-stats{ justify-content:center; flex-wrap:wrap; } }
 
   section{ padding:5.5rem 0; position:relative; }
   .reveal{ opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
   .reveal.in{ opacity:1; transform:translateY(0); }
 
-  /* carousel — auto-scrolling marquee, seamless loop */
-  .carousel-wrap{ position:relative; }
-  .carousel{ display:flex; gap:1rem; overflow-x:hidden; padding-bottom:0.5rem; scrollbar-width:none; cursor:grab; }
+  /* carousel — auto-scrolling marquee, seamless loop, full-bleed edge to edge */
+  .carousel-wrap{ position:relative; width:100vw; margin-left:calc(50% - 50vw); }
+  .carousel{ display:flex; gap:1rem; overflow-x:hidden; padding:0 1rem 0.5rem; scrollbar-width:none; cursor:grab; }
   .carousel::-webkit-scrollbar{ display:none; }
   .carousel figure{ flex:0 0 auto; width:260px; }
   .carousel img{ width:260px; height:320px; object-fit:cover; border-radius:2px; border:1px solid var(--line); background:var(--bg-panel-2); display:block; }
   .carousel figcaption{ font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--ink-dim); font-size:0.85rem; margin-top:0.6rem; text-align:center; }
   .carousel-btn{ position:absolute; top:40%; transform:translateY(-50%); width:40px; height:40px; border-radius:50%; background:var(--bg); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; color:var(--ink); font-size:1.1rem; transition:background .2s; }
   .carousel-btn:hover{ background:var(--bg-panel-2); }
-  .carousel-btn.prev{ left:-10px; } .carousel-btn.next{ right:-10px; }
+  .carousel-btn.prev{ left:1.2rem; } .carousel-btn.next{ right:1.2rem; }
   @media (max-width:700px){ .carousel-btn{ display:none; } }
 
   /* bio center block */
@@ -125,7 +138,7 @@
     <div class="logo">IS<span>tudio</span></div>
     <div class="nav-links" id="navLinks">
       <a href="#home">Home</a>
-      <a href="#" id="navReserva">Reserva turnos</a>
+      <a href="#" id="navReserva" class="nav-glow">Reserva turnos</a>
       <a href="#galeria">Galería</a>
       <a href="#experiencias">Experiencias</a>
     </div>
@@ -138,13 +151,8 @@
   <h1>Un espacio creado con mucho <em>amor</em><br>para dejarte naturalmente hermosa.</h1>
   <p class="lead">Lifting de pestañas y brow lamination, con resultados que duran semanas y una atención pensada para vos.</p>
   <div class="hero-ctas">
-    <a href="#" id="heroReserva" class="btn btn-solid">Reservar turno</a>
+    <a href="#" id="heroReserva" class="btn btn-solid btn-glow">Reservar turno</a>
     <a href="#galeria" class="btn btn-ghost">Ver servicios</a>
-  </div>
-  <div class="hero-stats">
-    <div><span class="num">165+</span><span class="label">Trabajos realizados</span></div>
-    <div><span class="num">1900+</span><span class="label">Clientas felices</span></div>
-    <div><span class="num">100%</span><span class="label">Resultado natural</span></div>
   </div>
 </section>
 
@@ -167,6 +175,11 @@
         <span class="eyebrow">Quién está detrás</span>
         <h3>Isolina Studio</h3>
         <p>Un espacio creado con mucho amor para realzar tu belleza natural. Isolina se especializa en lifting de pestañas y brow lamination, técnicas pensadas para levantar y definir sin extensiones ni maquillaje permanente — resultados que duran semanas, en una atención cuidada cita por cita.</p>
+        <div class="bio-stats">
+          <div><span class="num">165+</span><span class="label">Trabajos realizados</span></div>
+          <div><span class="num">1900+</span><span class="label">Clientas felices</span></div>
+          <div><span class="num">100%</span><span class="label">Resultado natural</span></div>
+        </div>
       </div>
     </div>
 
