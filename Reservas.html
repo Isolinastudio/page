@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reservar turno — Isolina Studio</title>
+<meta name="description" content="Reservá tu turno online en Isolina Studio: lifting de pestañas y brow lamination.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #faf6f1;
+    --bg-panel: #f3ebe2;
+    --bg-panel-2: #eee2d5;
+    --ink: #211c17;
+    --ink-dim: #6b6055;
+    --rose: #c1908c;
+    --rose-deep: #9c6b67;
+    --gold: #b1863f;
+    --line: rgba(33,28,23,0.12);
+    --radius: 2px;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{ background:var(--bg); color:var(--ink); font-family:'Jost',sans-serif; font-weight:300; line-height:1.6; }
+  h1,h2,.serif{ font-family:'Cormorant Garamond',serif; font-weight:500; letter-spacing:0.01em; color:var(--ink); }
+  .eyebrow{ font-family:'Jost',sans-serif; font-size:0.72rem; letter-spacing:0.32em; text-transform:uppercase; color:var(--gold); display:inline-block; margin-bottom:1rem; }
+  a{ color:inherit; text-decoration:none; }
+  .wrap{ max-width:1000px; margin:0 auto; padding:0 6vw; }
+
+  header{ position:sticky; top:0; z-index:50; background:rgba(250,246,241,0.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:1.1rem 6vw; }
+  .logo{ font-family:'Cormorant Garamond',serif; font-size:1.5rem; letter-spacing:0.06em; display:flex; align-items:baseline; gap:0.4rem; }
+  .logo span{ color:var(--rose-deep); font-style:italic; font-size:0.95rem; }
+  .back-link{ font-size:0.85rem; color:var(--ink-dim); display:flex; align-items:center; gap:0.4rem; }
+  .back-link:hover{ color:var(--gold); }
+
+  .hero{ text-align:center; padding:4.5rem 6vw 2.5rem; }
+  .hero h1{ font-size:clamp(2.2rem,5vw,3.2rem); margin-top:0.6rem; }
+  .hero p{ color:var(--ink-dim); max-width:480px; margin:1.1rem auto 0; font-size:0.98rem; }
+
+  .curl-divider{ display:flex; justify-content:center; margin:1.8rem auto; width:120px; }
+  .curl-divider svg{ width:100%; height:auto; }
+  .curl-path{ fill:none; stroke:var(--gold); stroke-width:1.4; stroke-linecap:round; }
+
+  .cal-section{ padding: 1rem 0 4rem; }
+  .cal-box{
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    min-height: 640px;
+    box-shadow: 0 12px 40px rgba(33,28,23,0.06);
+    overflow: hidden;
+  }
+  #my-cal-inline{ width:100%; height:640px; }
+
+  .cal-fallback{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    height:100%; min-height:640px; text-align:center; padding: 2rem;
+    color: var(--ink-dim);
+  }
+  .cal-fallback strong{ color: var(--ink); font-family:'Cormorant Garamond',serif; font-size:1.4rem; display:block; margin-bottom:0.8rem; }
+
+  .btn{ display:inline-block; padding:0.75rem 1.6rem; border:1px solid var(--ink); color:var(--ink); font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; transition:background .3s,color .3s,transform .2s; border-radius:var(--radius); margin-top:1.4rem; }
+  .btn:hover{ background:var(--ink); color:var(--bg); transform:translateY(-1px); }
+  .btn-solid{ background:var(--rose-deep); color:#fff; border-color:var(--rose-deep); }
+  .btn-solid:hover{ background:var(--gold); border-color:var(--gold); color:#fff; }
+
+  .note{
+    max-width: 640px; margin: 2rem auto 0; text-align:center;
+    font-size: 0.85rem; color: var(--ink-dim);
+    border-top: 1px dashed var(--line); padding-top: 1.5rem;
+  }
+
+  footer{ padding:2.5rem 0; text-align:center; border-top:1px solid var(--line); }
+  footer .fine{ color:var(--ink-dim); font-size:0.75rem; opacity:0.7; }
+  footer a{ color: var(--rose-deep); }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">IS<span>tudio</span></div>
+    <a href="index.html" class="back-link">← Volver al inicio</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <span class="eyebrow">Turnos</span>
+  <h1>Reservá tu turno</h1>
+  <p>Elegí el servicio, mirá los horarios disponibles y confirmá — queda agendado al instante, sin esperar respuesta.</p>
+  <div class="curl-divider"><svg viewBox="0 0 120 26"><path class="curl-path" d="M4 21 Q 34 -4, 60 13 T 116 4"/></svg></div>
+</section>
+
+<section class="cal-section">
+  <div class="wrap">
+    <div class="cal-box">
+      <!-- ============================================================
+           CAL.COM — completar acá abajo con tus datos reales:
+           1) Reemplazá TU-EVENT-SLUG por el nombre de tu evento (lo ves en la URL de Cal.com)
+           2) Reemplazá "isolina-studio/lifting" por tu calLink real (usuario/evento)
+           Mientras tanto se muestra un aviso con botón de WhatsApp.
+      ============================================================ -->
+      <div id="my-cal-inline"></div>
+      <div class="cal-fallback" id="calFallback">
+        <strong>El calendario se conecta acá</strong>
+        <p>En cuanto tengamos el link de Cal.com, este espacio va a mostrar los horarios disponibles en vivo.</p>
+        <a href="#" id="waFallback" class="btn btn-solid" target="_blank" rel="noopener">Reservar por WhatsApp mientras tanto</a>
+      </div>
+    </div>
+
+    <p class="note">¿Preferís coordinar directo? Escribinos por <a href="https://www.instagram.com/isolina_studio/" target="_blank" rel="noopener" style="color:var(--rose-deep)">Instagram</a> o por WhatsApp y te ayudamos a encontrar el horario.</p>
+  </div>
+</section>
+
+<footer>
+  <p class="fine">© <span id="year"></span> Isolina Studio · <a href="index.html">Volver al inicio</a></p>
+</footer>
+
+<script type="text/javascript">
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ====== CONFIG: completar cuando tengas la cuenta de Cal.com ======
+  const CAL_EVENT_SLUG = '';   // ej: 'lifting-de-pestanas'
+  const CAL_LINK = '';         // ej: 'isolina-studio/lifting' (usuario/evento, SIN https://)
+  const WHATSAPP_NUMBER = '';  // ej: '5493855555555'
+  // ====================================================================
+
+  const waMsg = encodeURIComponent('Hola! Quiero reservar un turno en Isolina Studio ✨');
+  document.getElementById('waFallback').href = WHATSAPP_NUMBER ? `https://wa.me/${WHATSAPP_NUMBER}?text=${waMsg}` : '#';
+
+  if (CAL_LINK) {
+    document.getElementById('calFallback').style.display = 'none';
+    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", CAL_EVENT_SLUG, { origin: "https://cal.com" });
+    Cal.ns[CAL_EVENT_SLUG]("inline", {
+      elementOrSelector: "#my-cal-inline",
+      config: { layout: "month_view" },
+      calLink: CAL_LINK,
+    });
+    Cal.ns[CAL_EVENT_SLUG]("ui", {
+      styles: { branding: { brandColor: "#c1908c" } },
+      hideEventTypeDetails: false,
+      layout: "month_view",
+    });
+  }
+</script>
+
+</body>
+</html>
